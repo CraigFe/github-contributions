@@ -4,10 +4,10 @@ let ( >>> ) f g x = g (f x)
 
 type repo = { name : string } [@@deriving yojson]
 
-type pr = { created_at : string; title : string; url : string }
+type pr = { created_at : string; title : string; url : [ `Uri of string ] }
 [@@deriving yojson]
 
-type issue = { created_at : string; title : string; url : string }
+type issue = { created_at : string; title : string; url : [ `Uri of string ] }
 [@@deriving yojson]
 
 type 'a by_repo = { repository : repo; contributions : 'a list }
@@ -28,11 +28,11 @@ module Synthesise = struct
 
   let pr x : pr =
     let x = x#pullRequest in
-    { created_at = x#createdAt; title = x#title; url = x#url }
+    { created_at = x#createdAt; title = x#title; url = `Uri x#url }
 
   let issue x : issue =
     let x = x#issue in
-    { created_at = x#createdAt; title = x#title; url = x#url }
+    { created_at = x#createdAt; title = x#title; url = `Uri x#url }
 
   let by_repo c x =
     {
