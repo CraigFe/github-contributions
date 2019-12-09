@@ -1,0 +1,8 @@
+(executable
+ (name main)
+ (libraries lwt lwt.unix cohttp cohttp-lwt cohttp-lwt-unix tls uri
+   ppx_deriving_yojson.runtime yojson fmt)
+ (preprocess
+  (pps ppx_graphql ppx_deriving_yojson))
+ (preprocessor_deps
+  (file schema.json)))
