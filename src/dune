@@ -6,3 +6,8 @@
   (pps ppx_graphql ppx_deriving_yojson))
  (preprocessor_deps
   (file schema.json)))
+
+(install
+ (section bin)
+ (files
+  (main.exe as github-contributions)))

@@ -33,10 +33,11 @@ let by_repo r ppf { repository; contributions } =
 
 let contributions_collection ~person ppf { prs; issues; pr_reviews; _ } =
   let open Fmt in
-  pf ppf "%a\n%a\n%a"
-    (list ~sep:cut (by_repo (pull_request ~person)))
+  let sep = cut ++ cut in
+  pf ppf "%a@,@,%a@,@,%a@,%!"
+    (list ~sep (by_repo (pull_request ~person)))
     prs
-    (list ~sep:cut (by_repo (issue ~person)))
+    (list ~sep (by_repo (issue ~person)))
     issues
-    (list ~sep:cut (by_repo (pull_request_review ~person)))
+    (list ~sep (by_repo (pull_request_review ~person)))
     pr_reviews
